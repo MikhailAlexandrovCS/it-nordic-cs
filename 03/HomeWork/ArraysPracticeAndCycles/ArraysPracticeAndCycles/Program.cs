@@ -5,8 +5,8 @@ namespace ArraysPracticeAndCycles
 {
     internal class Program
     {
-        private const int _peopleCount = 3;
-        private const int _incrementForAge = 4;
+        private const int _peopleCount = 1;
+        private const int _incrementForAge = 10;
         public static void work(ConsoleInput input, ConsoleOutput output, string[] names, int[] ages)
         {
             names = input.GetValuesOfNamesFromUserByKeyboard(names);

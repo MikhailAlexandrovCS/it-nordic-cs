@@ -54,10 +54,10 @@ namespace ArraysPracticeAndCycles
             {
                 consoleWriter.WriteText(Properties.Resources.Age, ConsoleColor.White);
                 ages[agesIndex] = GetAgeValueWithCheck();
-                Console.MoveBufferArea(0, agesIndex + 5, Console.BufferWidth, 1, Console.BufferWidth, agesIndex + 5, ' ', Console.ForegroundColor, Console.BackgroundColor);
-                Console.SetCursorPosition(Properties.Resources.Age.Length, agesIndex + 5);
+                Console.MoveBufferArea(0, agesIndex + ages.Length + 2, Console.BufferWidth, 1, Console.BufferWidth, agesIndex + ages.Length + 2, ' ', Console.ForegroundColor, Console.BackgroundColor);
+                Console.SetCursorPosition(Properties.Resources.Age.Length, agesIndex + ages.Length + 2);
                 consoleWriter.WriteText(ages[agesIndex].ToString(), ConsoleColor.Green);
-                Console.SetCursorPosition(GetCountNumbersInAge(ages[agesIndex]), agesIndex + 5);
+                Console.SetCursorPosition(GetCountNumbersInAge(ages[agesIndex]), agesIndex + ages.Length + 2);
                 Console.WriteLine();
             }
             return ages;
