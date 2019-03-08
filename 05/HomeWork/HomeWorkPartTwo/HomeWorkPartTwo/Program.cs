@@ -12,6 +12,23 @@ namespace HomeWorkPartTwo
             Triangle = 2,
             Rectangle = 3
         }
+        static void Main(string[] args)
+        {
+            try
+            {
+                Figures figure = InputValue("Введите тип фигуры (" + GetAllFiguresInOneString(Enum.GetNames(typeof(Figures))) + "): ");
+                GetAreaAndPerimeterOfFigure(figure, "Площадь поверхности ", "Длина периметра ");
+            }
+            catch (ArgumentException e)
+            {
+                Console.WriteLine("Введеный Вами аргумент неправильный! Программа завершает работу");
+            }
+            catch (OverflowException e)
+            {
+                Console.WriteLine("Введеное Вами значение очень большое! Программа завершает работу");
+            }
+            Console.ReadKey();
+        }
         public static Figures InputValue(string message)
         {
             Console.WriteLine(message);
@@ -19,9 +36,9 @@ namespace HomeWorkPartTwo
         }
         public static void GetAreaAndPerimeterOfFigure(Figures figure, string messageArea, string messagePerimeter)
         {
-            switch(figure.ToString())
+            switch (figure.ToString())
             {
-                
+
                 case "Circle":
                     {
                         try
@@ -82,7 +99,7 @@ namespace HomeWorkPartTwo
         }
         public static void MessageForUser(string figureType, bool isRect)
         {
-            switch(figureType)
+            switch (figureType)
             {
                 case "Circle":
                     {
@@ -109,23 +126,6 @@ namespace HomeWorkPartTwo
             for (int i = 0; i < allFigures.Length; i++)
                 allFigures[i] = (i + 1).ToString() + " - " + TranslateEnglishToRussian(allFigures[i]) + ", ";
             return string.Concat(allFigures).Substring(0, string.Concat(allFigures).Length - 2);
-        }
-        static void Main(string[] args)
-        {
-            try
-            {
-                Figures figure = InputValue("Введите тип фигуры (" + GetAllFiguresInOneString(Enum.GetNames(typeof(Figures))) + "): ");
-                GetAreaAndPerimeterOfFigure(figure, "Площадь поверхности ", "Длина периметра ");
-            }
-            catch (ArgumentException e)
-            {
-                Console.WriteLine("Введеный Вами аргумент неправильный! Программа завершает работу");
-            }
-            catch (OverflowException e)
-            {
-                Console.WriteLine("Введеное Вами значение очень большое! Программа завершает работу");
-            }
-            Console.ReadKey();
         }
     }
 }
