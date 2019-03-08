@@ -1,17 +1,32 @@
 ﻿using System;
-using System.Drawing;
-using System.Globalization;
 
 namespace EnumPractice
 {
     class Program
     {
         [Flags]
-        enum Containers
+        public enum Containers
         {
             oneLiter = 0x1,
             fiveLitres = 0x1 << 1,
             twentyLitres = 0x1 << 2
+        }
+        static void Main(string[] args)
+        {
+            Int32 sign = 0;
+            string[] allContainers = Enum.GetNames(typeof(Containers));
+            int[] countLiters = new int[3];
+            Array.Reverse(allContainers);
+            int[] containersValues = { 20, 5, 1 };
+            int volume = (int)Math.Ceiling(GetVolumeOfJuiceFromUser("Введите объем сока в литрах: "));
+            for (int i = 0; i < allContainers.Length; i++)
+            {
+                sign = SetSign(sign, volume, (Containers)Enum.Parse(typeof(Containers), allContainers[i]), containersValues[i]);
+                countLiters[i] = CountUsingContainers(volume, containersValues[i]);
+                volume = SubtractionVolume(volume, containersValues[i]);
+            }
+            Output(sign, countLiters);
+            Console.ReadKey();
         }
         public static double GetVolumeOfJuiceFromUser(string message)
         {
@@ -22,86 +37,35 @@ namespace EnumPractice
                 Console.Write(message);
                 isCheck = double.TryParse(Console.ReadLine(), out volume);
             }
-            while (!isCheck);
+            while (!isCheck || volume <= 0);
             return volume;
         }
-        public static (double, Int32) SetSignContainerInValue(double volume, Int32 sign)
+        public static Int32 SetSign(Int32 sign, int volume, Containers containers, int containerValue)
         {
-            if (volume - 20 >= 0 && sign == 0)
-                sign = sign | (byte)Containers.twentyLitres;
-            else
-            {
-                if (volume - 5 >= 0 && sign == 0)
-                    sign = sign | (byte)Containers.fiveLitres;
-                else
-                    if (volume - 1 >= 0 && sign == 0)
-                    sign = sign | (byte)Containers.oneLiter;
-            }
-            return (volume, sign);
+            if (Math.DivRem(volume, containerValue, out volume) > 0)
+                sign = sign | (byte)containers;
+            return sign;
         }
-        public static (int, int, int, double) GetRecognizedContainer(Int32 sign, double volume, int count1L, int count5L, int count20L)
+        public static int SubtractionVolume(int volume, int containerValue)
         {
-            for (int i = 0; i < 3; i++)
-            {
-                if ((sign & (0x1 << i)) == (byte)Containers.oneLiter)
-                {
-                    count1L++;
-                    volume--;
-                }
-                else
-                {
-                    if ((sign & (0x1 << i)) == (byte)Containers.fiveLitres)
-                    {
-                        count5L++;
-                        volume -= 5;
-                    }
-                    else
-                    {
-                        if ((sign & (0x1 << i)) == (byte)Containers.twentyLitres)
-                        {
-                            count20L = count20L + 1;
-                            volume -= 20;
-                        }
-                    }
-
-                }
-            }
-            return (count1L, count5L, count20L, volume);
+            int resVolume;
+            Math.DivRem(volume, containerValue, out resVolume);
+            return resVolume;
         }
-        public static void Output(int count1L, int count5L, int count20L, string message)
+        public static int CountUsingContainers(int volume, int containerValue)
         {
-            Console.WriteLine(message);
-            var cursorPosition = new Point(Console.CursorLeft, Console.CursorTop);
-            Console.WriteLine(count20L == 0 ? string.Empty : "20 л: " + count20L.ToString() + " шт.");
-            if (count20L == 0)
-                Console.SetCursorPosition(0, 2);
-            Console.WriteLine(count5L == 0 ? string.Empty : " 5 л: " + count5L.ToString() + " шт.");
-            if (count20L == 0 && count5L == 0)
-                Console.SetCursorPosition(0, 2);
-            else
-            {
-                if (count5L == 0)
-                    Console.SetCursorPosition(0, 3);
-            }
-            Console.WriteLine(count1L == 0 ? string.Empty : " 1 л: " + count1L.ToString() + " шт.");
+            int tmp;
+            int result = Math.DivRem(volume, containerValue, out tmp);
+            return result;
         }
-        static void Main(string[] args)
+        public static void Output(Int32 sign, int[] countLitres)
         {
-            Int32 sign = 0;
-            int count1L = 0, count5L = 0, count20L = 0;
-            double volume = Math.Ceiling(GetVolumeOfJuiceFromUser("Введите объем сока в литрах: "));
-            while (volume != 0)
-            {
-                var signerValues = SetSignContainerInValue(volume, sign);
-                var containerValues = GetRecognizedContainer(signerValues.Item2, signerValues.Item1, count1L, count5L, count20L);
-                count1L = containerValues.Item1;
-                count5L = containerValues.Item2;
-                count20L = containerValues.Item3;
-                volume = containerValues.Item4;
-                sign = 0;
-            }
-            Output(count1L, count5L, count20L, "Вам потребуются следующие контейнеры: ");
-            Console.ReadKey();
+            if ((sign & (byte)Containers.twentyLitres) == (byte)Containers.twentyLitres)
+                Console.WriteLine("20 л: " + countLitres[0] + " шт.");
+            if ((sign & (byte)Containers.fiveLitres) == (byte)Containers.fiveLitres)
+                Console.WriteLine(" 5 л: " + countLitres[1] + " шт.");
+            if ((sign & (byte)Containers.oneLiter) == (byte)Containers.oneLiter)
+                Console.WriteLine(" 1 л: " + countLitres[2] + " шт.");
         }
     }
 }
