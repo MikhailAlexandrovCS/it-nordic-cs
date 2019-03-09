@@ -17,14 +17,16 @@ namespace HomeWorkPartOneEnumPractice
             White = 8,
             Yellow = 9
         }
+
         static void Main(string[] args)
         {
-            Colors[] favoriteColors = GetFavoriteColorsFromCollection("Введите 4 избранных цвета: ");
             string[] allColors = Enum.GetNames(typeof(Colors));
+            Colors[] favoriteColors = GetFavoriteColorsFromCollection("Введите 4 избранных цвета из набора (" + string.Join(", ", allColors) + "): ");
             OutputFavoriteColors("Палитра избранных цветов: ", favoriteColors);
             OutputNotFavoriteColors("Оставшиеся цвета: ", favoriteColors, allColors);
             Console.ReadKey();
         }
+
         public static object GetColorFromUser()
         {
             object color;
@@ -36,6 +38,7 @@ namespace HomeWorkPartOneEnumPractice
             while (!isColors);
             return color;
         }
+
         public static bool IsContains(Colors[] favoriteColors, string color)
         {
             for (int i = 0; i < favoriteColors.Length; i++)
@@ -43,6 +46,7 @@ namespace HomeWorkPartOneEnumPractice
                     return false;
             return true;
         }
+
         public static Colors[] GetFavoriteColorsFromCollection(string message)
         {
             Console.WriteLine(message);
@@ -51,12 +55,14 @@ namespace HomeWorkPartOneEnumPractice
                 favoriteColors[i] = (Colors)GetColorFromUser();
             return favoriteColors;
         }
+
         public static void OutputFavoriteColors(string message, Colors[] favoriteColors)
         {
             Console.WriteLine(message);
             for (int i = 0; i < favoriteColors.Length; i++)
                 Console.WriteLine(favoriteColors[i]);
         }
+
         public static void OutputNotFavoriteColors(string message, Colors[] favoriteColors, string[] allColors)
         {
             Console.WriteLine(message);
