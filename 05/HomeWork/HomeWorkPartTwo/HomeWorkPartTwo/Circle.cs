@@ -11,6 +11,7 @@ namespace HomeWorkPartTwo
         {
             diameter = diameterValue;
         }
+
         public double CirclePerimeter(int numbersAfterComma)
         {
             double result = 2.0 * Math.PI * (diameter / 2.0); ;
@@ -18,6 +19,7 @@ namespace HomeWorkPartTwo
                 return result;
             return Math.Round(result, numbersAfterComma);
         }
+
         public double CircleArea(int numbersAfterComma)
         {
             double result = (Math.PI / 4.0) * diameter;

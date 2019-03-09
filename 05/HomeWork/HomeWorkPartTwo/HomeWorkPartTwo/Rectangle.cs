@@ -8,11 +8,13 @@ namespace HomeWorkPartTwo
     {
         private double height;
         private double width;
+
         public Rectangle(double heightValue, double widthValue)
         {
             height = heightValue;
             width = widthValue;
         }
+
         public double RectanglePerimeter(int numbersAfterComma)
         {
             double result = height + width;
@@ -20,6 +22,7 @@ namespace HomeWorkPartTwo
                 return result;
             return Math.Round(result, numbersAfterComma);
         }
+
         public double RectangleArea(int numbersAfterComma)
         {
             double result = height * width;
