@@ -45,18 +45,18 @@ namespace DemoApp6
 			};
 			double avgValue = 0;
 			double avgDay = 0;
-            double del = 0;
+            int marksCount = 0;
 			for (int i = 0; i < marks.Length; i++)
 			{
 				try
 				{
 					for (int j = 0; j < marks[i].Length; j++)
 					{
-						avgValue += marks[i][j];
-                        del = marks[i].Length;
+						avgDay += marks[i][j];
+                        avgValue += marks[i][j];
 					}
-                    avgDay += avgValue / del;
-                    Console.WriteLine("Средний балл за день " + (i + 1).ToString() + ": " + (avgValue / del).ToString());
+                    marksCount += marks[i].Length;
+                    Console.WriteLine("Средний балл за день " + (i + 1).ToString() + ": " + (avgValue / marks[i].Length).ToString());
                     avgValue = 0;
                 }
 				catch(NullReferenceException e)
@@ -65,7 +65,7 @@ namespace DemoApp6
 					continue;
 				}
 			}
-			Console.WriteLine("Средний балл за неделю: " + (avgDay / marks.Length));
+			Console.WriteLine("Средний балл за неделю: " + Math.Round((avgDay / marksCount), 1));
 			Console.ReadKey();
 		}
 	}
