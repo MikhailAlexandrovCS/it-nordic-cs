@@ -18,16 +18,9 @@ namespace CountEvenDigitsInNumber
         {
             int countDigits = 0;
 
-            while(true)
-            {
-                if (result == 0)
-                    break;
-                int residue;
-                result = Math.DivRem(result, 10, out residue);
-                Math.DivRem(residue, 2, out residue);
-                if (residue == 0)
+            for (int i = 0; i < result.ToString().Length; i++)
+                if (result.ToString()[i] % 2 == 0)
                     countDigits++;
-            }
 
             return countDigits;
         }
