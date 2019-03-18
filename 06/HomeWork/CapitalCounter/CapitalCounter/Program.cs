@@ -49,15 +49,17 @@ namespace CapitalCounter
                 }
                 catch(OverflowException e)
                 {
-                    Console.WriteLine("Ошибка " + e.GetType().ToString() + "! Введите значение еще раз:");
+                    Console.WriteLine("Ошибка! Вы ввели слишком большое значение. Введите значение еще раз:");
                 }
                 catch(FormatException e)
                 {
-                    Console.WriteLine("Ошибка " + e.GetType().ToString() + "! Введите значение еще раз:");
+                    Console.WriteLine("Ошибка! Входные данные имели неверный формат! Необходимо ввести числовое значение." +
+                        " Введите значение еще раз:");
                 }
                 catch(ArgumentNullException e)
                 {
-                    Console.WriteLine("Ошибка " + e.GetType().ToString() + "! Введите значение еще раз:");
+                    Console.WriteLine("Ошибка! Была введена пустая строчка! Необходимо ввести числовое значение." +
+                        " Введите значение еще раз:");
                 }
             }
 

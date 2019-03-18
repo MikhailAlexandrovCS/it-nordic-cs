@@ -19,24 +19,21 @@ namespace SchoolMarks
             double avgValue = 0;
             int marksCount = 0;
 
-            for (int i = 0; i < marks.Length; i++)
+            for (int day = 0; day < marks.Length; day++)
             {
-                try
+                if (marks[day] != null)
                 {
-                    for (int j = 0; j < marks[i].Length; j++)
+                    for (int marksInDay = 0; marksInDay < marks[day].Length; marksInDay++)
                     {
-                        avgValue += marks[i][j];
-                        avgDay += marks[i][j];
+                        avgValue += marks[day][marksInDay];
+                        avgDay += marks[day][marksInDay];
                     }
-                    marksCount += marks[i].Length;
-                    Console.WriteLine("Средний балл за день #" + (i + 1).ToString() + ": " + (avgDay / marks[i].Length).ToString());
+                    marksCount += marks[day].Length;
+                    Console.WriteLine("Средний балл за день #" + (day + 1).ToString() + ": " + (avgDay / marks[day].Length).ToString());
                     avgDay = 0;
                 }
-                catch (NullReferenceException e)
-                {
-                    Console.WriteLine("Средний балл за день " + (i + 1).ToString() + ": N/A");
-                    continue;
-                }
+                else
+                    Console.WriteLine("Средний балл за день #" + (day + 1).ToString() + ": N/A");
             }
 
             Console.WriteLine("Средний балл за неделю: " + Math.Round((avgValue / marksCount), 1));
