@@ -15,7 +15,7 @@ namespace CountWordsWithA
         {
             uint counter = 0;
             for (int i = 0; i < words.Length; i++)
-                if (words[i].Contains('а', StringComparison.InvariantCultureIgnoreCase))
+                if (words[i].StartsWith("а", StringComparison.InvariantCultureIgnoreCase))
                     counter++;
             return counter;
         }
