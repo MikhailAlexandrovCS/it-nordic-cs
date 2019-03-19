@@ -12,7 +12,7 @@ namespace CheckLineForRightBrackets
             while(true)
             {
                 Console.Write("Введите строку, состояющую из различных скобок для анализа на правильность: ");
-                textWithBrackets = Console.ReadLine();
+                textWithBrackets = Console.ReadLine()?.Trim();
                 if (IsBracketsOnly(textWithBrackets))
                     break;
             }
