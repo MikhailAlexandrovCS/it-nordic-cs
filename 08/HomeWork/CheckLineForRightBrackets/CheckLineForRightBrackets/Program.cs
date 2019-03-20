@@ -6,10 +6,17 @@ namespace CheckLineForRightBrackets
 {
     class Program
     {
+        private static Dictionary<char, char> bracketsDictionary = new Dictionary<char, char>(3)
+            {
+                {')', '(' },
+                {'}', '{' },
+                {']', '[' }
+            };
         static void Main(string[] args)
         {
+
             string textWithBrackets = null;
-            while(true)
+            while (true)
             {
                 Console.Write("Введите строку, состояющую из различных скобок для анализа на правильность: ");
                 textWithBrackets = Console.ReadLine()?.Trim();
@@ -31,7 +38,7 @@ namespace CheckLineForRightBrackets
 
         public static bool IsCorrectString(string textWithBrackets)
         {
-            if(textWithBrackets.Length % 2 == 0)
+            if (textWithBrackets.Length % 2 == 0)
             {
                 Stack<char> brackets = new Stack<char>(textWithBrackets.Length);
                 for (int bracketIndex = 0; bracketIndex < textWithBrackets.Length; bracketIndex++)
@@ -39,33 +46,17 @@ namespace CheckLineForRightBrackets
                     switch (textWithBrackets[bracketIndex])
                     {
                         case '(':
-                            {
-                                brackets.Push(textWithBrackets[bracketIndex]);
-                                break;
-                            }
                         case '[':
-                            {
-                                brackets.Push(textWithBrackets[bracketIndex]);
-                                break;
-                            }
                         case '{':
                             {
                                 brackets.Push(textWithBrackets[bracketIndex]);
                                 break;
                             }
                         case ')':
-                            {
-                                DeleteFromStackIfNeed(brackets, '(');
-                                break;
-                            }
                         case ']':
-                            {
-                                DeleteFromStackIfNeed(brackets, '[');
-                                break;
-                            }
                         case '}':
                             {
-                                DeleteFromStackIfNeed(brackets, '{');
+                                DeleteFromStackIfNeed(brackets, bracketsDictionary[textWithBrackets[bracketIndex]]);
                                 break;
                             }
                     }
