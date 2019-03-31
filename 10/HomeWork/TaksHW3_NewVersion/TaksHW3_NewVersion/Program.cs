@@ -8,8 +8,8 @@ namespace TaksHW3_NewVersion
 
         static void Main(string[] args)
         {
-            Person[] people = ValuesInputer.GetValues(_maxPersonsValue);
-            ValuesOutputer.OutputInfoAfterFourYears(people);
+            Person[] people = PeopleProvider.RequestFromConsole(_maxPersonsValue);
+            PersonPresenter.ShowOnConsoleInfoAfterFourYears(people);
             Console.ReadKey();
         }
     }

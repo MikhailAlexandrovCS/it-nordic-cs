@@ -4,9 +4,9 @@ using System.Text;
 
 namespace TaksHW3_NewVersion
 {
-    class ValuesInputer
+    class PeopleProvider
     {
-        public static Person[] GetValues(int maxPeopleValue)
+        public static Person[] RequestFromConsole(int maxPeopleValue)
         {
             Person[] people = new Person[maxPeopleValue];
             for (int i = 0; i < people.Length; i++)
