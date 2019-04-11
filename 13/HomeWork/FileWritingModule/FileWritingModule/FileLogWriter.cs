@@ -5,9 +5,10 @@ using System.Text;
 
 namespace FileWritingModule
 {
-    class FileLogWriter : AbstractLogWriter
+    class FileLogWriter : AbstractLogWriter, IDisposable
     {
         private string _pathToFile { get; set; }
+        private StreamWriter _streamWriter;
 
         public FileLogWriter(string pathToFile)
         {
@@ -31,10 +32,16 @@ namespace FileWritingModule
 
         private void WriteMessageInFile(string message)
         {
-            using (StreamWriter streamWriter = new StreamWriter(_pathToFile, true))
+            using (_streamWriter = new StreamWriter(_pathToFile, true))
             {
-                streamWriter.Write($"{message}\n");
+                _streamWriter.Write($"{message}\n");
             }
+        }
+
+        void IDisposable.Dispose()
+        {
+            if (_streamWriter != null)
+                _streamWriter.Dispose();
         }
     }
 }
