@@ -1,0 +1,13 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Singlton
+{
+    abstract class AbstractLogWriter
+    {
+        abstract public void LogError(string message);
+        abstract public void LogInfo(string message);
+        abstract public void LogWarning(string message);
+    }
+}
