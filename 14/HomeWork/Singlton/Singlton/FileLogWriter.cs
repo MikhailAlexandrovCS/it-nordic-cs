@@ -15,7 +15,7 @@ namespace Singlton
             _pathToFile = pathToFile;
         }
 
-        public static FileLogWriter GetInstance()
+        public static FileLogWriter GetInstance(string _pathToFile)
         {
             if (_fileLogWriter == null)
                 _fileLogWriter = new FileLogWriter(_pathToFile);

@@ -14,7 +14,7 @@ namespace Singlton
             _logWriters = logWriters;
         }
 
-        public static MultipeLogWriter GetInstance()
+        public static MultipeLogWriter GetInstance(List<ILogWriter> _logWriters)
         {
             if (_multipeLogWriter == null)
                 _multipeLogWriter = new MultipeLogWriter(_logWriters);

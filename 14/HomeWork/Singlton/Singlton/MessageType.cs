@@ -4,7 +4,10 @@ using System.Text;
 
 namespace Singlton
 {
-    class MessageType
+    public enum MessageType
     {
+        Error,
+        Warning,
+        Info
     }
 }
