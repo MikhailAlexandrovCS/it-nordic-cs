@@ -5,44 +5,34 @@ using System.Text;
 
 namespace Singlton
 {
-    class FileLogWriter : AbstractLogWriter
+    class FileLogWriter : AbstractLogWriter, IDisposable
     {
-        private static string _pathToFile { get; set; }
         private static FileLogWriter _fileLogWriter;
+        private StreamWriter _streamWriter;
 
-        private FileLogWriter(string pathToFile)
+        private FileLogWriter()
         {
-            _pathToFile = pathToFile;
         }
 
-        public static FileLogWriter GetInstance(string _pathToFile)
+        public static FileLogWriter GetInstance()
         {
             if (_fileLogWriter == null)
-                _fileLogWriter = new FileLogWriter(_pathToFile);
+                _fileLogWriter = new FileLogWriter();
             return _fileLogWriter;
         }
 
-        public override void LogError(string message)
+        public override void GetMessage(MessageType messageType, string message)
         {
-            WriteMessageInFile(message);
+            _streamWriter = new StreamWriter(@"F:\testF.txt", true);
+            if (_streamWriter != null)
+                _streamWriter.Write(DateTimeOffset.Now.ToString("yyyy-MM-dd HH:mm:ss+0000") + "\t" + messageType.ToString() + "\t" + message + "\n");
+            _streamWriter.Close();
         }
 
-        public override void LogInfo(string message)
+        public void Dispose()
         {
-            WriteMessageInFile(message);
-        }
-
-        public override void LogWarning(string message)
-        {
-            WriteMessageInFile(message);
-        }
-
-        private void WriteMessageInFile(string message)
-        {
-            using (StreamWriter streamWriter = new StreamWriter(_pathToFile, true))
-            {
-                streamWriter.Write($"{message}\n");
-            }
+            if (_streamWriter != null)
+                ((IDisposable)_streamWriter).Dispose();
         }
     }
 }

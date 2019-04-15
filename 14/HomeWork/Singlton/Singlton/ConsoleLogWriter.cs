@@ -10,26 +10,16 @@ namespace Singlton
 
         private ConsoleLogWriter() { }
 
-        public override void LogError(string message)
-        {
-            Console.Write($"{message}\n");
-        }
-
-        public override void LogInfo(string message)
-        {
-            Console.Write($"{message}\n");
-        }
-
-        public override void LogWarning(string message)
-        {
-            Console.Write($"{message}\n");
-        }
-
         public static ConsoleLogWriter GetInstance()
         {
             if (_consoleLogWriter == null)
                 _consoleLogWriter = new ConsoleLogWriter();
             return _consoleLogWriter;
+        }
+
+        public override void GetMessage(MessageType messageType, string message)
+        {
+            Console.Write(DateTimeOffset.Now.ToString("yyyy-MM-dd HH:mm:ss+0000") + "\t" + messageType.ToString() + "\t" + message + "\n");
         }
     }
 }
