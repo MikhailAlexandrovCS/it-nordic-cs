@@ -9,22 +9,16 @@ namespace GenericLogWriter
 
         static void Main(string[] args)
         {
-            LogWriterFactory logWriterFactory = LogWriterFactory.GetInstance();
-            ConsoleLogWriter consoleLogWriter = new ConsoleLogWriter();
-            FileLogWriter fileLogWriter = new FileLogWriter(_path);
-            MultipeLogWriter multipeLogWriter = new MultipeLogWriter
-                (new List<ILogWriter>()
-                { logWriterFactory.GetLogWriter<ILogWriter>(consoleLogWriter),
-                logWriterFactory.GetLogWriter<ILogWriter>(fileLogWriter)});
-            multipeLogWriter.LogError(GetMessage(MessageType.Error, "Ошибка"));
-            multipeLogWriter.LogWarning(GetMessage(MessageType.Warning, "Внимание"));
-            multipeLogWriter.LogInfo(GetMessage(MessageType.Info, "Информация"));
+            MultipeLogWriter multipeLogWriter = (MultipeLogWriter)LogWriterFactory.GetInstance().GetLogWriter<MultipeLogWriter>(
+                new List<ILogWriter> {
+                (ConsoleLogWriter)LogWriterFactory.GetInstance().GetLogWriter<ConsoleLogWriter>(null),
+                (FileLogWriter)LogWriterFactory.GetInstance().GetLogWriter<FileLogWriter>(_path)});
+            multipeLogWriter.LogError("Ошибка");
+            multipeLogWriter.LogWarning("Внимание");
+            multipeLogWriter.LogInfo("Информация");
             Console.ReadKey();
         }
 
-        private static string GetMessage(MessageType messageType, string message)
-        {
-            return DateTimeOffset.Now.ToString("yyyy-MM-dd HH:mm:ss+0000") + "\t" + messageType.ToString() + "\t" + message;
-        }
+        
     }
 }

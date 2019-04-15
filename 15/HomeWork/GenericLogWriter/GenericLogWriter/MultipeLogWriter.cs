@@ -13,22 +13,27 @@ namespace GenericLogWriter
             _logWriters = logWriters;
         }
 
-        public override void LogError(string message)
+        public override void GetMessage(MessageType messageType, string message)
         {
             foreach (var logger in _logWriters)
-                logger.LogError(message);
-        }
-
-        public override void LogInfo(string message)
-        {
-            foreach (var logger in _logWriters)
-                logger.LogError(message);
-        }
-
-        public override void LogWarning(string message)
-        {
-            foreach (var logger in _logWriters)
-                logger.LogError(message);
+                switch (messageType)
+                {
+                    case MessageType.Error:
+                        {
+                            logger.LogError(message);
+                            break;
+                        }
+                    case MessageType.Info:
+                        {
+                            logger.LogInfo(message);
+                            break;
+                        }
+                    case MessageType.Warning:
+                        {
+                            logger.LogWarning(message);
+                            break;
+                        }
+                }
         }
     }
 }

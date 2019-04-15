@@ -17,7 +17,19 @@ namespace GenericLogWriter
 
         public ILogWriter GetLogWriter<T> (object parameters) where T : ILogWriter
         {
-            return (ILogWriter)parameters;
+            if (typeof(T) == typeof(ConsoleLogWriter))
+                return new ConsoleLogWriter();
+            else
+            {
+                if (typeof(T) == typeof(FileLogWriter))
+                    return new FileLogWriter(parameters.ToString());
+                else
+                {
+                    if (typeof(T) == typeof(MultipeLogWriter))
+                        return new MultipeLogWriter((List<ILogWriter>)parameters);
+                }
+            }
+            return null;
         }
     }
 }

@@ -15,33 +15,18 @@ namespace GenericLogWriter
             _pathToFile = pathToFile;
         }
 
-        public override void LogError(string message)
+        public override void GetMessage(MessageType messageType, string message)
         {
-            WriteMessageInFile(message);
+            _streamWriter = new StreamWriter(@"F:\testF.txt", true);
+            if (_streamWriter != null)
+                _streamWriter.Write(DateTimeOffset.Now.ToString("yyyy-MM-dd HH:mm:ss+0000") + "\t" + messageType.ToString() + "\t" + message + "\n");
+            _streamWriter.Close();
         }
 
-        public override void LogInfo(string message)
-        {
-            WriteMessageInFile(message);
-        }
-
-        public override void LogWarning(string message)
-        {
-            WriteMessageInFile(message);
-        }
-
-        private void WriteMessageInFile(string message)
-        {
-            using (_streamWriter = new StreamWriter(_pathToFile, true))
-            {
-                _streamWriter.Write($"{message}\n");
-            }
-        }
-
-        void IDisposable.Dispose()
+        public void Dispose()
         {
             if (_streamWriter != null)
-                _streamWriter.Dispose();
+                ((IDisposable)_streamWriter).Dispose();
         }
     }
 }
