@@ -9,7 +9,7 @@ namespace DemoApp17_2_
 	class RandomDataGenerator
 	{
 		public event EventHandler<RandomDataEventArgs> RandomDataGenerated;
-		public event EventHandler GeneratedComplete;
+		public event EventHandler<RandomDataGenerationDoneEventArgs> GeneratedComplete;
 
 		public byte[] GetRandomData(int dataSize, int bytesDoneToRaiseEvent)
 		{
@@ -20,12 +20,14 @@ namespace DemoApp17_2_
 				if ((i + 1) % bytesDoneToRaiseEvent == 0)
 					OnWorkPerfomed(this, new RandomDataEventArgs
 					{
-						bytesDone = i + 1,
-						totalBytes = dataSize
+						BytesDone = i + 1,
+						TotalBytes = dataSize
 					}
 				);
 			}
-			OnWorkCompleted(this, RandomDataEventArgs.Empty);
+            OnWorkCompleted(
+                this,
+                new RandomDataGenerationDoneEventArgs { RandomData = info });
 			return info;
 		}
 
@@ -34,7 +36,7 @@ namespace DemoApp17_2_
 			RandomDataGenerated?.Invoke(sender, e);
 		}
 
-		protected virtual void OnWorkCompleted(object sender, RandomDataEventArgs e)
+		protected virtual void OnWorkCompleted(object sender, RandomDataGenerationDoneEventArgs e)
 		{
 			GeneratedComplete?.Invoke(sender, e);
 		}

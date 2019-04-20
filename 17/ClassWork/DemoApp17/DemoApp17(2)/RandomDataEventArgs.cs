@@ -6,7 +6,7 @@ namespace DemoApp17_2_
 {
 	class RandomDataEventArgs : EventArgs
 	{
-		public int bytesDone { get; set; }
-		public int totalBytes { get; set; }
+		public int BytesDone { get; set; }
+		public int TotalBytes { get; set; }
 	}
 }
