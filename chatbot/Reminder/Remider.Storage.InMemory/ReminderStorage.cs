@@ -8,30 +8,41 @@ namespace Remider.Storage.InMemory
 	{
 		private Dictionary<Guid, ReminderItem> _storage;
 
-		public ReminderStorage()
+        public int StorageCount => _storage.Count;
+
+        public ReminderStorage()
 		{
 			_storage = new Dictionary<Guid, ReminderItem>();
 		}
 
-		void IRemainderStorage.Add(ReminderItem reminderItem)
+		public void Add(ReminderItem reminderItem)
 		{
-			/// TODO: add custom exception throwing if already exist
-			_storage.Add(reminderItem.Id, reminderItem);
+            if (!_storage.ContainsKey(reminderItem.Id))
+                _storage.Add(reminderItem.Id, reminderItem);
+            else
+                throw new Exception("Такое оповещение уже есть!");
 		}
 
-		ReminderItem IRemainderStorage.Get(Guid id)
+		public ReminderItem Get(Guid id)
 		{
 			return _storage.ContainsKey(id) ? _storage[id] : null;
 		}
-		List<ReminderItem> IRemainderStorage.GetList(IEnumerable<RemainderItemStatus> status, int count, int startPosition)
+
+		public List<ReminderItem> GetList(IEnumerable<ReminderItemStatus> status, int count, int startPosition)
 		{
-			throw new NotImplementedException();
+            List<ReminderItem> reminderItems = new List<ReminderItem>();
+            //foreach (KeyValuePair<Guid, ReminderItem> keyValuePair in _storage)
+            //    if (keyValuePair.Value.status.ToString() == status.ToString())
+            //        reminderItems.Add(keyValuePair.Value);
+            return reminderItems;
 		}
 
-		void IRemainderStorage.Update(ReminderItem reminderItem)
+		public void Update(ReminderItem reminderItem)
 		{
-			/// TODO: add custom exception throwing if not found
-			_storage[reminderItem.Id] = reminderItem;
+            if (_storage.ContainsKey(reminderItem.Id))
+                _storage[reminderItem.Id] = reminderItem;
+            else
+                throw new Exception("Такого напоминания не существует!");
 		}
 	}
 }

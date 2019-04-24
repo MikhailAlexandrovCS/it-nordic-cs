@@ -8,6 +8,7 @@ namespace Reminder.Storage.Core
 		public DateTimeOffset Date { get; set; }
 		public string Message { get; set; }
 		public string ContactId { get; set; }
+        public ReminderItemStatus status { get; set; }
 
 		public ReminderItem(Guid id, DateTimeOffset date, string message, string contactId)
 		{

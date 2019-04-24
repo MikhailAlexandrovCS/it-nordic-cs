@@ -2,7 +2,7 @@
 
 namespace Reminder.Storage.Core
 {
-	public enum RemainderItemStatus
+	public enum ReminderItemStatus
 	{
 		Awaiting,
 		ReadyToSend,
