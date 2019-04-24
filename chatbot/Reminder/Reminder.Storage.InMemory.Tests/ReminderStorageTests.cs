@@ -34,8 +34,8 @@ namespace TestReminderItemStorage
             var reminderStorage = new ReminderStorage();
             Guid guid = new Guid("B553C20A-8D24-4A91-97BD-8EDCF328130F");
             reminderStorage.Add(new ReminderItem(guid, DateTimeOffset.Parse("05/01/2008"), "1", "1"));
-            
-            Assert.ThrowsException<Exception>(() => 
+
+            Assert.ThrowsException<Exception>(() =>
             reminderStorage.Add(new ReminderItem(guid, DateTimeOffset.Parse("05/01/2008"), "1", "1")));
         }
 
