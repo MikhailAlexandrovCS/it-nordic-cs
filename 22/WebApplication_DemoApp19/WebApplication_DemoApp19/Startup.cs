@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using WebApplication_DemoApp19.DataStore;
 
 namespace WebApplication_DemoApp19
 {
@@ -28,6 +29,8 @@ namespace WebApplication_DemoApp19
                         Version = "V1"
                     });
             });
+
+			services.AddSingleton<ICitiesDataStore>(new CitiesDataStore());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
