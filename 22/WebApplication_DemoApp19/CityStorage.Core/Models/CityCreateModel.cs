@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using WebApplication_DemoApp19.Validation;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace WebApplication_DemoApp19.Models
+namespace WebApplication_DemoApp19.City.Core
 {
     public class CityCreateModel
     {

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace WebApplication_DemoApp19.Validation
+namespace WebApplication_DemoApp19.City.Core
 {
 	[AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
 	public class DifferentValueAttribute : ValidationAttribute

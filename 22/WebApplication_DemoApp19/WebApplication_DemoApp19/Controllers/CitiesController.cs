@@ -1,11 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using WebApplication_DemoApp19.DataStore;
-using WebApplication_DemoApp19.Models;
+using WebApplication_DemoApp19.City.Core;
 
 namespace WebApplication_DemoApp19.Controllers
 {
@@ -90,6 +86,9 @@ namespace WebApplication_DemoApp19.Controllers
 
             if (city.Equals(null))
                 NotFound();
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
             city = new CityGetModel
             {

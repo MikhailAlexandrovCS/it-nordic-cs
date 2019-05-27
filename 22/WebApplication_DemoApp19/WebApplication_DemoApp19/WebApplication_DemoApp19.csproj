@@ -22,4 +22,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CityStorage.Core\WebApplication_DemoApp19.City.Core.csproj" />
+    <ProjectReference Include="..\WebApplication_DemoApp19.City.InMemory\WebApplication_DemoApp19.City.InMemory.csproj" />
+  </ItemGroup>
+
 </Project>

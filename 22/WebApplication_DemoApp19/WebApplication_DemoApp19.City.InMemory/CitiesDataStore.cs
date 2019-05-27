@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using WebApplication_DemoApp19.Models;
+﻿using System.Collections.Generic;
+using WebApplication_DemoApp19.City.Core;
 
-namespace WebApplication_DemoApp19.DataStore
+namespace WebApplication_DemoApp19.City.InMemory
 {
     public class CitiesDataStore : ICitiesDataStore
     {
