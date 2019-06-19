@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Reminder.Storage.Core;
+using Reminder.Storage.SqlServer.ADO.Tests;
 
-namespace Reminder.Storage.Sql.Tests
+namespace Reminder.Storage.SqlServer.ADO.Tests
 {
 	[TestClass]
 	public class SqlReminderStorageTests
 	{
 		private const string _connectionString =
-			@"Data Source=localhost\SQLEXPRESS02;Initial Catalog=ReminderTests;Integrated Security=true;";
+			@"Data Source=localhost\SQLEXPRESS;Initial Catalog=Reminder;Integrated Security=true;";
 
 		[TestInitialize]
 		public void TestInitialize()
@@ -19,7 +20,54 @@ namespace Reminder.Storage.Sql.Tests
 			dbInit.InitializeDatabase();
 		}
 
-		[TestMethod]
+        [TestMethod]
+        public void Method_Property_Count_Returns_10_For_Initial_Data_Sets()
+        {
+            var storage = new SqlReminderStorage(_connectionString);
+
+            int actual = storage.Count;
+
+            Assert.AreEqual(6, actual);
+        }
+
+        [TestMethod]
+        public void Method_Bulk()
+        {
+            var storage = new SqlReminderStorage(_connectionString);
+            var ids = new List<Guid>()
+            {
+                new Guid("00000000-0000-0000-0000-222222222222"),
+                new Guid("00000000-0000-0000-0000-111111111111")
+            };
+            storage.UpdateStatus(ids, ReminderItemStatus.Failed);
+            var actual = storage.Get(ReminderItemStatus.Failed);
+
+            Assert.IsTrue(actual.Select(x => x.Id).Contains(ids[0]));
+            Assert.IsTrue(actual.Select(x => x.Id).Contains(ids[1]));
+        }
+
+        [TestMethod]
+        public void Method_Remove_ReminderItem_By_Id()
+        {
+            var storage = new SqlReminderStorage(_connectionString);
+
+            var actual = storage.Remove(Guid.Parse("00000000-0000-0000-0000-222222222222"));
+
+            Assert.IsTrue(actual);
+        }
+
+        [TestMethod]
+        public void Method_Remove_ReminderItem_By_Id_Return_False()
+        {
+            var storage = new SqlReminderStorage(_connectionString);
+
+            var actual = storage.Remove(Guid.Parse("00000000-0000-0000-0000-222222222222"));
+            actual = storage.Remove(Guid.Parse("00000000-0000-0000-0000-222222222222"));
+
+            Assert.IsFalse(actual);
+        }
+
+        [TestMethod]
 		public void Method_Add_Returns_Not_Empty_Guid()
 		{
 			var storage = new SqlReminderStorage(_connectionString);
