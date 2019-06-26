@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace ORM_HomeWork.Migrations
+namespace ORM_HomeWork.Data.Migrations
 {
     public partial class InitialCreate : Migration
     {
@@ -21,7 +21,9 @@ namespace ORM_HomeWork.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_City", x => x.Id);
+                    table.PrimaryKey("PK_City", x => x.Id)
+                        .Annotation("SqlServer:Clustered", true);
+                    table.UniqueConstraint("UQ_City_Name", x => x.Name);
                 });
 
             migrationBuilder.CreateTable(
@@ -34,7 +36,8 @@ namespace ORM_HomeWork.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Position", x => x.Id);
+                    table.PrimaryKey("PK_Position", x => x.Id)
+                        .Annotation("SqlServer:Clustered", true);
                 });
 
             migrationBuilder.CreateTable(
@@ -48,7 +51,8 @@ namespace ORM_HomeWork.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PostalItem", x => x.Id);
+                    table.PrimaryKey("PK_PostalItem", x => x.Id)
+                        .Annotation("SqlServer:Clustered", true);
                 });
 
             migrationBuilder.CreateTable(
@@ -61,7 +65,8 @@ namespace ORM_HomeWork.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Status", x => x.Id);
+                    table.PrimaryKey("PK_Status", x => x.Id)
+                        .Annotation("SqlServer:Clustered", true);
                 });
 
             migrationBuilder.CreateTable(
@@ -75,7 +80,8 @@ namespace ORM_HomeWork.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Adress", x => x.Id);
+                    table.PrimaryKey("PK_Address", x => x.Id)
+                        .Annotation("SqlServer:Clustered", true);
                     table.ForeignKey(
                         name: "FK_Adress_City_FK_Address_CityId",
                         column: x => x.FK_Address_CityId,
@@ -97,7 +103,8 @@ namespace ORM_HomeWork.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Contractor", x => x.Id);
+                    table.PrimaryKey("PK_Сontractor", x => x.Id)
+                        .Annotation("SqlServer:Clustered", true);
                     table.ForeignKey(
                         name: "FK_Contractor_Position_FK_Contractor_PositionId",
                         column: x => x.FK_Contractor_PositionId,
@@ -132,8 +139,7 @@ namespace ORM_HomeWork.Migrations
                         principalTable: "PostalItem",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade,
-                        onUpdate: ReferentialAction.Cascade
-                        );
+                        onUpdate: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_SendingStatus_Adress_ReceivingAdressId",
                         column: x => x.ReceivingAdressId,

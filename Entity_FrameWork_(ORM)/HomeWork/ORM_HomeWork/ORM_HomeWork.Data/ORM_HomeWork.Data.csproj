@@ -1,9 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.2</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20190626120916_TestAfterChanges.cs" />
+    <Compile Remove="Migrations\20190626131333_TestAfterChangesAddClusteredPrimaryKeys.cs" />
+    <Compile Remove="Migrations\20190626132020_InitialCreate.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.4" />
@@ -14,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ORM_HomeWork.Data\ORM_HomeWork.Data.csproj" />
+    <ProjectReference Include="..\ORM_HomeWork.Domain\ORM_HomeWork.Domain.csproj" />
   </ItemGroup>
 
 </Project>

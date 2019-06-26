@@ -3,17 +3,15 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ORM_HomeWork.Data;
 
-namespace ORM_HomeWork.Migrations
+namespace ORM_HomeWork.Data.Migrations
 {
     [DbContext(typeof(CorrespondenceStorage))]
-    [Migration("20190626115255_InitialCreateAddUniqueConstraintInTableCity")]
-    partial class InitialCreateAddUniqueConstraintInTableCity
+    partial class CorrespondenceStorageModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,7 +32,9 @@ namespace ORM_HomeWork.Migrations
 
                     b.Property<int>("FK_Address_CityId");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("PK_Address")
+                        .HasAnnotation("SqlServer:Clustered", true);
 
                     b.HasIndex("FK_Address_CityId");
 
@@ -52,7 +52,9 @@ namespace ORM_HomeWork.Migrations
                         .HasColumnName("Name")
                         .HasColumnType("VARCHAR(250)");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("PK_City")
+                        .HasAnnotation("SqlServer:Clustered", true);
 
                     b.HasAlternateKey("Name")
                         .HasName("UQ_City_Name");
@@ -73,7 +75,9 @@ namespace ORM_HomeWork.Migrations
                         .HasColumnName("Name")
                         .HasColumnType("VARCHAR(250)");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("PK_Сontractor")
+                        .HasAnnotation("SqlServer:Clustered", true);
 
                     b.HasIndex("FK_Contractor_PositionId");
 
@@ -91,7 +95,9 @@ namespace ORM_HomeWork.Migrations
                         .HasColumnName("Name")
                         .HasColumnType("VARCHAR(250)");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("PK_Position")
+                        .HasAnnotation("SqlServer:Clustered", true);
 
                     b.ToTable("Position","dbo");
                 });
@@ -109,7 +115,9 @@ namespace ORM_HomeWork.Migrations
 
                     b.Property<int>("NumberOfPages");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("PK_PostalItem")
+                        .HasAnnotation("SqlServer:Clustered", true);
 
                     b.ToTable("PostalItem","dbo");
                 });
@@ -158,7 +166,9 @@ namespace ORM_HomeWork.Migrations
                         .HasColumnName("Name")
                         .HasColumnType("VARCHAR(20)");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("PK_Status")
+                        .HasAnnotation("SqlServer:Clustered", true);
 
                     b.ToTable("Status","dbo");
                 });
